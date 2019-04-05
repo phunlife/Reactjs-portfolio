@@ -35,28 +35,28 @@ const ListProjects = () => {
 
 
 const ProjectList = params => {
+
+	const truncate = (string, length) => {
+		var shortString = string.substring(0,length)
+		return shortString + "...";
+	}
 	
 	const list = Object.keys(params.projects).map(key =>{
 			if (key !== "prototype"){
-			 return <div class="flex-row" key={key}>
-			 		<div class="container">
-			 			<div class="flex-row">
-			 			<div class="flex-small"><h3>{params.projects[key]["Title"]}</h3></div>
+			 return <div class="flex-small card" key={key}>
+			 			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1024px-The_Earth_seen_from_Apollo_17.jpg" />
+			 			<div class="body">
+			 			<strong>{params.projects[key]["Title"]}</strong><br />
+			 			{truncate(params.projects[key]["Description"], 85)}<br />
+			 			<a href={params.projects[key]["Link"]}>Link to project</a> <br/>
+			 			{params.projects[key]["Date"]}
 			 			</div>
-			 			<div class="flex-row">
-			 			<div class="flex-small">{params.projects[key]["Description"]}</div>
-			 			</div>
-			 			<div class="flex-row">
-			 			<div class="flex-small">{params.projects[key]["Link"]}</div>
-			 			<div class="flex-small">{params.projects[key]["Date"]}</div>
-			 			</div>
-			 		</div>
 			 		</div>
 			}});
 
 
 	return(
-		<div>{list}</div>
+		<div class="flex-row" >{list}</div>
 		);
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {getToken} from './api/strapi';
 import ListProjects from './projects/ListProjects'
+import './App.css';
 
 getToken();
 
