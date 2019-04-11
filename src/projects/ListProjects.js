@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getToken, getProjects} from '../api/strapi';
+import {getProjects} from '../api/strapi';
 
 
 const ListProjects = () => {
@@ -9,8 +9,7 @@ const ListProjects = () => {
 	const [projects, setProjects] = useState(projectData);
 
 	async function fetchProjects() {
-		 let token = await getToken();
-		 let pro = await getProjects(token);
+		 let pro = await getProjects();
 		 console.log(pro)
 		 return pro;
 	 }
@@ -18,6 +17,7 @@ const ListProjects = () => {
 	useEffect(() => {
 	 if(projects.length === 0){
 	 	 fetchProjects().then(response => setProjects(response));
+	 	 loading = false
 	 }
 	 
 	}, []
@@ -27,7 +27,11 @@ const ListProjects = () => {
 
 	return(
 		<div class="container">
-			<ProjectList projects={projects} />
+			{ loading ? (
+				<ProjectList projects={projects} />
+			) : (
+				<p>Loading projects...</p>		
+			)}
 			
 		</div>
 	);

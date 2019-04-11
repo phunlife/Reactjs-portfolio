@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 // Request API.
+let token = null;
 
 export const getToken = () => {
 	return axios.post('https://safe-spire-41819.herokuapp.com/auth/local', {
@@ -13,12 +14,30 @@ export const getToken = () => {
 }
 
 
-export const getProjects = (token) => {
-		return axios.get('https://safe-spire-41819.herokuapp.com/projects', {
-		    headers: {
-		      Authorization: `Bearer ${token}`
-		    }
-		  })
+export const getProjects = () => {
+		return axios.get('https://safe-spire-41819.herokuapp.com/projects')
 		  .then(response => response.data )
+		  .catch(error => console.log('An error occurred:', error))
+	}
+
+export async function postProject (project) {
+		if(token === null){
+			token = await getToken();
+			console.log(token)
+		}
+		return axios({
+			  method: 'post',
+			  url: 'https://safe-spire-41819.herokuapp.com/content-manager/explorer/projects',
+			  headers: {
+		      	Authorization: `Bearer ${token}`
+		      },
+			  data: {
+			    Title: project.title,
+			    Description: project.description,
+			    Link: project.link,
+			    Img_link: project.img_link
+			  }
+		})
+		  .then(response => console.log(response) )
 		  .catch(error => console.log('An error occurred:', error))
 	}
