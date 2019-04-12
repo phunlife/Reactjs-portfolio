@@ -3,8 +3,8 @@ import {getProjects} from '../api/strapi';
 import openSocket from 'socket.io-client';
 const socket = openSocket(process.env.REACT_APP_STRAPI_URL);
 //const socket = openSocket(process.env.REACT_APP_STRAPI_URL_LOCAL);
-socket.on('hello', (res) => console.log(res));
-socket.on('project_list', (res) => console.log(res));
+//socket.on('hello', (res) => console.log(res));
+//socket.on('project_list', (res) => console.log(res));
 
 
 const ListProjects = () => {
@@ -12,6 +12,9 @@ const ListProjects = () => {
 	let loading = true;
 	const projectData = [];
 	const [projects, setProjects] = useState(projectData);
+
+	const [project, setProject] = useState({});
+	socket.on('project_list', (res) => setProjects([...projects, res]));
 
 	async function fetchProjects() {
 		 let pro = await getProjects();

@@ -11,13 +11,26 @@
 	max-width: 100%;
 }
 
+.card .body {
+	width: 91vw;
+}
+
+
 .description {
 	height: 8.3rem;
 }
 
 
+@media all and (min-width: 560px) {
+.card .body {
+	width: 29vw;
+}
+.card img {
+	max-width: 100%;
+	max-height: 45vw;
+}
 
-
+}
 
 @media all and (min-width: 760px) {
 
@@ -33,13 +46,25 @@
 }
 
 @media all and (min-width: 1280px) {
+.card {
+	max-width: 25%;
+}
 
 .card .body {
-	width: 16.5vw;
+	width: 19.5vw;
 }
+
+.card img {
+	max-width: 100%;
+	max-height: 21vw;
+}
+
 }
 
 @media all and (min-width: 1600px) {
+.card {
+	max-width: 25%;
+}
 
 .card .body {
 	width: 13.5vw;
