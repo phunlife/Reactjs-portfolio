@@ -1,10 +1,7 @@
 import React from 'react';
-import {getToken} from './api/strapi';
 import ListProjects from './projects/ListProjects'
 import AddProjectForm from './projects/AddProjectForm'
 import './App.css';
-
-getToken();
 
 const App = () => {
 
