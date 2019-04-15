@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getProjects} from '../api/strapi';
+import {getProjects, deleteProject} from '../api/strapi';
 import openSocket from 'socket.io-client';
 const socket = openSocket(process.env.REACT_APP_STRAPI_URL);
 //const socket = openSocket(process.env.REACT_APP_STRAPI_URL_LOCAL);
@@ -9,7 +9,7 @@ const socket = openSocket(process.env.REACT_APP_STRAPI_URL);
 
 const ListProjects = () => {
 	
-	let loading = true;
+	const [loading, setLoading] = useState(true);
 	const projectData = [];
 	const [projects, setProjects] = useState(projectData);
 
@@ -25,7 +25,7 @@ const ListProjects = () => {
 	useEffect(() => {
 	 if(projects.length === 0){
 	 	 fetchProjects().then(response => setProjects(response));
-	 	 loading = false
+	 	 setLoading(false);
 	 }
 	 
 	}, []
@@ -36,9 +36,9 @@ const ListProjects = () => {
 	return(
 		<div class="container">
 			{ loading ? (
-				<ProjectList projects={projects} />
+				<p><center>Loading projects...</center></p>	
 			) : (
-				<p>Loading projects...</p>		
+				<ProjectList projects={projects}/>	
 			)}
 			
 		</div>
@@ -49,8 +49,18 @@ const ListProjects = () => {
 const ProjectList = params => {
 
 	const truncate = (string, length) => {
-		var shortString = string.substring(0,length)
-		return shortString + "...";
+		if (string >= length){
+			var shortString = string.substring(0,length)
+			return shortString + "...";
+		} else {
+			return string
+		}
+	}
+
+	const removeProject = (id, title) => {
+		if (window.confirm("Do you really want to remove " + title + "?")){
+			deleteProject(id);
+		}
 	}
 	
 	const list = Object.keys(params.projects).map(key =>{
@@ -62,6 +72,7 @@ const ProjectList = params => {
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
 			 			<a href={params.projects[key]["Link"]}>Link to project</a> <br/>
 			 			{params.projects[key]["Date"]}
+			 			<button onClick={() => {removeProject( params.projects[key]["id"], params.projects[key]["Title"])}}>X</button>
 			 			</div>
 			 		</div>
 			}});

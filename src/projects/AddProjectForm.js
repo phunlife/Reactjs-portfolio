@@ -25,10 +25,10 @@ return(
 		<div class="flex-row" >
 			<div class="flex-small">
 				<label>Title</label>
-				<input type="text" name="title" onChange={handleChange} value={project.title} />
+				<input type="text" name="title" onChange={handleChange} value={project.title} required/>
 				<label>Link</label>
 				<input type="text" name="link" onChange={handleChange} value={project.link} />
-				<label>Imgage link</label>
+				<label>Image link</label>
 				<input type="text" name="img_link" onChange={handleChange} value={project.img_link} />
 			</div>
 			<div class="flex-small">
