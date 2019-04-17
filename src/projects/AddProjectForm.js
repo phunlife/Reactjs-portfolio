@@ -3,7 +3,7 @@ import {postProject} from '../api/strapi';
 
 const AddProjectForm = props => {
 
-	const initProject = {title: "", link: "",description: "", img_link: ""};
+	const initProject = {title: "", link: "", description: "", img_link: ""};
 	const [project, setProject] = useState(initProject);
 
 	const handleChange = e => {
@@ -25,7 +25,7 @@ return(
 		<div class="flex-row" >
 			<div class="flex-small">
 				<label>Title</label>
-				<input type="text" name="title" onChange={handleChange} value={project.title} required/>
+				<input type="text" name="title" onChange={handleChange} value={project.title} />
 				<label>Link</label>
 				<input type="text" name="link" onChange={handleChange} value={project.link} />
 				<label>Image link</label>

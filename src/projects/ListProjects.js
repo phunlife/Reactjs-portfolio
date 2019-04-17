@@ -7,14 +7,23 @@ const socket = openSocket(process.env.REACT_APP_STRAPI_URL);
 //socket.on('project_list', (res) => console.log(res));
 
 
-const ListProjects = () => {
+const ListProjects = props => {
 	
 	const [loading, setLoading] = useState(true);
-	const projectData = [];
-	const [projects, setProjects] = useState(projectData);
+	
+	const [projects, setProjects] = useState([]);
 
 	const [project, setProject] = useState({});
-	socket.on('project_list', (res) => setProjects([...projects, res]));
+	
+	socket.on('new_project', (res) => setProjects([...projects, res]));
+	socket.on('removed_project', (res) => handleRemovedProject(res));
+	socket.on('edited_project', (res) => updateProject(res));
+
+
+	const handleRemovedProject = res => {
+		let newProjects = projects.filter( p => res["id"] !== p.id );
+		setProjects(newProjects);
+	}
 
 	async function fetchProjects() {
 		 let pro = await getProjects();
@@ -22,12 +31,23 @@ const ListProjects = () => {
 		 return pro;
 	 }
 
+	 const removeProject = (e, id, title) => {
+		e.preventDefault();
+		if (window.confirm("Do you really want to remove " + title + "?")){
+			deleteProject(id);
+		}
+	}
+
+	const updateProject = res => {
+		let newProjects = projects.map(p => p.id === res.id ? res : p);
+		setProjects(newProjects); 
+	}
+
 	useEffect(() => {
-	 if(projects.length === 0){
+	 if(projects.length === 0 && loading){
 	 	 fetchProjects().then(response => setProjects(response));
 	 	 setLoading(false);
 	 }
-	 
 	}, []
 	);
 
@@ -36,9 +56,9 @@ const ListProjects = () => {
 	return(
 		<div class="container">
 			{ loading ? (
-				<p><center>Loading projects...</center></p>	
+				<center>Loading projects...</center>	
 			) : (
-				<ProjectList projects={projects}/>	
+				<ProjectList projects={projects} removeProject={removeProject} handleEdit={props.handleEdit}/>	
 			)}
 			
 		</div>
@@ -57,12 +77,6 @@ const ProjectList = params => {
 		}
 	}
 
-	const removeProject = (id, title) => {
-		if (window.confirm("Do you really want to remove " + title + "?")){
-			deleteProject(id);
-		}
-	}
-	
 	const list = Object.keys(params.projects).map(key =>{
 			if (key !== "prototype"){
 			 return <div class="flex-small card" key={key}>
@@ -72,7 +86,8 @@ const ProjectList = params => {
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
 			 			<a href={params.projects[key]["Link"]}>Link to project</a> <br/>
 			 			{params.projects[key]["Date"]}
-			 			<button onClick={() => {removeProject( params.projects[key]["id"], params.projects[key]["Title"])}}>X</button>
+			 			<button onClick={e => params.removeProject(e, params.projects[key]["id"], params.projects[key]["Title"])}>X</button>
+			 			<button onClick={() => params.handleEdit(params.projects[key]) }>Edit</button>
 			 			</div>
 			 		</div>
 			}});

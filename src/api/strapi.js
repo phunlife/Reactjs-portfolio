@@ -23,7 +23,6 @@ export const getProjects = () => {
 export async function postProject (project) {
 		if(token === null){
 			token = await getToken();
-			console.log(token)
 		}
 		return axios({
 			  method: 'post',
@@ -42,11 +41,30 @@ export async function postProject (project) {
 		  .catch(error => console.log('An error occurred:', error))
 	}
 
+export async function editProject (project) {
+		if(token === null){
+			token = await getToken();
+		}
+		return axios({
+			  method: 'put',
+			  url: 'https://safe-spire-41819.herokuapp.com/content-manager/explorer/projects/' + project.id,
+			  headers: {
+		      	Authorization: `Bearer ${token}`
+		      },
+			  data: {
+			    Title: project.Title,
+			    Description: project.Description,
+			    Link: project.Link,
+			    Img_link: project.Img_link
+			  }
+		})
+		  .then(response => console.log(response) )
+		  .catch(error => console.log('An error occurred:', error))
+	}
+
 export async function deleteProject (id) {
-	console.log("IDIDIDID: " + id)
 	if(token === null){
 			token = await getToken();
-			console.log(token)
 		}
 		return axios({
 			  method: 'delete',
