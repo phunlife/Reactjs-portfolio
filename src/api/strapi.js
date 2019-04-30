@@ -4,13 +4,13 @@ import axios from 'axios';
 // Request API.
 let token = null;
 
-export const getToken = () => {
+export async function getToken(user) {
 	return axios.post('https://safe-spire-41819.herokuapp.com/auth/local', {
-	      identifier: process.env.REACT_APP_STRAPI_MAIL,
-	      password: process.env.REACT_APP_STRAPI_PASSWORD
+	      identifier: user.mail,//process.env.REACT_APP_STRAPI_MAIL,
+	      password: user.password//process.env.REACT_APP_STRAPI_PASSWORD
 	  })
-	  .then(response => response.data.jwt)
-	  .catch(error => console.log('An error occurred:', error));
+	  .then(response => token = response.data.jwt)
+	  .catch(error => console.log('Email or password wrong:', error));
 }
 
 
@@ -22,7 +22,7 @@ export const getProjects = () => {
 
 export async function postProject (project) {
 		if(token === null){
-			token = await getToken();
+			return console.log("No token!");
 		}
 		return axios({
 			  method: 'post',
@@ -37,13 +37,13 @@ export async function postProject (project) {
 			    Img_link: project.img_link
 			  }
 		})
-		  .then(response => console.log(response) )
+		  .then(response => console.log("Project posted") )
 		  .catch(error => console.log('An error occurred:', error))
 	}
 
 export async function editProject (project) {
 		if(token === null){
-			token = await getToken();
+			return console.log("No token!");
 		}
 		return axios({
 			  method: 'put',
@@ -58,13 +58,13 @@ export async function editProject (project) {
 			    Img_link: project.Img_link
 			  }
 		})
-		  .then(response => console.log(response) )
+		  .then(response => console.log("Project edited") )
 		  .catch(error => console.log('An error occurred:', error))
 	}
 
 export async function deleteProject (id) {
 	if(token === null){
-			token = await getToken();
+			return console.log("No token!");
 		}
 		return axios({
 			  method: 'delete',

@@ -5,6 +5,7 @@
 
 .card{
 	flex: 1 1;
+	max-width: 100%;
 }
 
 .card img {
@@ -25,10 +26,35 @@
 	height: 8.3rem;
 }
 
+#login-form {
+	display: none;
+	position: absolute;
+	background-color: white;
+	padding: 1rem;
+	bottom: 2rem;
+}
+
+#loginBtn{
+
+}
+
+.header-title{
+	flex: 1 1;
+}
+
+.footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
 
 @media all and (min-width: 560px) {
-.card .body {
+.card {
 	width: 29vw;
+}
+.card .body {
+	width: inherit;
+	max-width: inherit;
 }
 .card img {
 	max-width: 100%;
@@ -38,10 +64,13 @@
 }
 
 @media all and (min-width: 760px) {
-
-.card .body {
-	width: 29vw;
+.header-title{
+	flex: 3 1;
 }
+.card {
+	max-width: 33vw;
+}
+
 
 .card img {
 	max-width: 100%;
@@ -51,13 +80,16 @@
 }
 
 @media all and (min-width: 1280px) {
-.card {
-	max-width: 25%;
+
+.header-title{
+	flex: 3 1;
 }
 
-.card .body {
-	width: 19.5vw;
+.card {
+	max-width: 23vw;
 }
+
+
 
 .card img {
 	max-width: 100%;
@@ -68,10 +100,12 @@
 
 @media all and (min-width: 1600px) {
 .card {
-	max-width: 25%;
+	max-width: 19vw;
+}
 }
 
-.card .body {
-	width: 13.5vw;
+@media all and (min-width: 3840px) {
+.card {
+	max-width: 7vw;
 }
 }

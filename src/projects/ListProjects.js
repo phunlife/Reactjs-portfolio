@@ -7,7 +7,7 @@ const socket = openSocket(process.env.REACT_APP_STRAPI_URL);
 //socket.on('project_list', (res) => console.log(res));
 
 
-const ListProjects = props => {
+const ListProjects = params => {
 	
 	const [loading, setLoading] = useState(true);
 	
@@ -58,7 +58,7 @@ const ListProjects = props => {
 			{ loading ? (
 				<center>Loading projects...</center>	
 			) : (
-				<ProjectList projects={projects} removeProject={removeProject} handleEdit={props.handleEdit}/>	
+				<ProjectList projects={projects} removeProject={removeProject} handleEdit={params.handleEdit} loggedIn={params.loggedIn}/>	
 			)}
 			
 		</div>
@@ -80,14 +80,18 @@ const ProjectList = params => {
 	const list = Object.keys(params.projects).map(key =>{
 			if (key !== "prototype"){
 			 return <div class="flex-small card" key={key}>
-			 			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1024px-The_Earth_seen_from_Apollo_17.jpg" />
+			 			<img src={params.projects[key]["Img_link"]} />
 			 			<div class="body">
 			 			<strong>{params.projects[key]["Title"]}</strong><br />
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
 			 			<a href={params.projects[key]["Link"]}>Link to project</a> <br/>
 			 			{params.projects[key]["Date"]}
-			 			<button onClick={e => params.removeProject(e, params.projects[key]["id"], params.projects[key]["Title"])}>X</button>
-			 			<button onClick={() => params.handleEdit(params.projects[key]) }>Edit</button>
+			 			{params.loggedIn &&
+			 			<div class="panel" >
+			 				<button onClick={e => params.removeProject(e, params.projects[key]["id"], params.projects[key]["Title"])}>X</button>
+			 				<button onClick={() => params.handleEdit(params.projects[key]) }>Edit</button>
+			 			</div>
+			 			}
 			 			</div>
 			 		</div>
 			}});
