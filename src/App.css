@@ -50,7 +50,7 @@
 
 @media all and (min-width: 560px) {
 .card {
-	width: 29vw;
+	width: 33vw;
 }
 .card .body {
 	width: inherit;
@@ -86,7 +86,7 @@
 }
 
 .card {
-	max-width: 23vw;
+	max-width: 27vw;
 }
 
 
