@@ -5,7 +5,6 @@ const LoginForm = params => {
 
 	const userInit = {mail: "", password: ""};
 	const [user, setUser] = useState(userInit);
-
 	const handleChange = e => {
 		const {name, value} = e.target
 		setUser({...user, [name]: value});
@@ -18,18 +17,23 @@ const LoginForm = params => {
 				setUser(userInit);
 				params.setLoggedIn(true);
 				loginBtnAction();
+			}else{
+				document.getElementById("loginError").style.display = "block";
 			}
 		});
 		
 	}
 
+	
+
 	const loginform = (
 		<div id="login-form">
 		<form onSubmit={e => handleSubmit(e)}>
+			<label id="loginError">Wrong username or password</label>
 			<label>E-mail</label>
-			<input type="text" name="mail" onChange={e => handleChange(e)} value={user.mail} />
+			<input type="text" name="mail" onChange={e => handleChange(e)} value={user.mail} required />
 			<label>Password</label>
-			<input type="password" name="password" onChange={e => handleChange(e)} value={user.password} />
+			<input type="password" name="password" onChange={e => handleChange(e)} value={user.password} required/>
 			<button type="submit">Sign in</button>
 		</form>
 		</div>

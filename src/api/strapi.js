@@ -10,7 +10,7 @@ export async function getToken(user) {
 	      password: user.password//process.env.REACT_APP_STRAPI_PASSWORD
 	  })
 	  .then(response => token = response.data.jwt)
-	  .catch(error => console.log('Email or password wrong:', error));
+	  .catch(error => console.log('Wrong Email or password', error));
 }
 
 
