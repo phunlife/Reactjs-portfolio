@@ -5,7 +5,7 @@ import axios from 'axios';
 let token = null;
 
 export async function getToken(user) {
-	return axios.post('https://safe-spire-41819.herokuapp.com/auth/local', {
+	return axios.post(process.env.REACT_APP_STRAPI_URL + '/auth/local', {
 	      identifier: user.mail,//process.env.REACT_APP_STRAPI_MAIL,
 	      password: user.password//process.env.REACT_APP_STRAPI_PASSWORD
 	  })
@@ -15,7 +15,7 @@ export async function getToken(user) {
 
 
 export const getProjects = () => {
-		return axios.get('https://safe-spire-41819.herokuapp.com/projects')
+		return axios.get(process.env.REACT_APP_STRAPI_URL + '/projects')
 		  .then(response => response.data )
 		  .catch(error => console.log('An error occurred:', error))
 	}
@@ -26,7 +26,7 @@ export async function postProject (project) {
 		}
 		return axios({
 			  method: 'post',
-			  url: 'https://safe-spire-41819.herokuapp.com/content-manager/explorer/projects',
+			  url: process.env.REACT_APP_STRAPI_URL + '/content-manager/explorer/projects',
 			  headers: {
 		      	Authorization: `Bearer ${token}`
 		      },
@@ -47,7 +47,7 @@ export async function editProject (project) {
 		}
 		return axios({
 			  method: 'put',
-			  url: 'https://safe-spire-41819.herokuapp.com/content-manager/explorer/projects/' + project.id,
+			  url: process.env.REACT_APP_STRAPI_URL + '/content-manager/explorer/projects/' + project.id,
 			  headers: {
 		      	Authorization: `Bearer ${token}`
 		      },
@@ -68,7 +68,7 @@ export async function deleteProject (id) {
 		}
 		return axios({
 			  method: 'delete',
-			  url: 'https://safe-spire-41819.herokuapp.com/content-manager/explorer/projects/' + id,
+			  url: process.env.REACT_APP_STRAPI_URL + '/content-manager/explorer/projects/' + id,
 			  headers: {
 		      	Authorization: `Bearer ${token}`
 		      }

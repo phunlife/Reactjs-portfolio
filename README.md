@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+For the strapi api to work you need a ".env.development" file with the following params:
+
+REACT_APP_STRAPI_URL= url to strapi
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
