@@ -51,7 +51,7 @@ const LoginForm = params => {
 		//document.getElementById("loginBtn").style.display = "none";
 		
 		
-		element.style.position = "absolute";
+		
 	}
 
 	return(
