@@ -45,8 +45,11 @@ const ListProjects = params => {
 
 	useEffect(() => {
 	 if(projects.length === 0 && loading){
-	 	 fetchProjects().then(response => setProjects(response));
-	 	 setLoading(false);
+	 	 fetchProjects().then(response => {
+			  setProjects(response);
+			  setLoading(false);
+			});
+	 	 
 	 }
 	}, []
 	);
