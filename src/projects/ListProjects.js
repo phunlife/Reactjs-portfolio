@@ -87,7 +87,8 @@ const ProjectList = params => {
 			 			<div class="body">
 			 			<strong>{params.projects[key]["Title"]}</strong><br />
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
-			 			<a href={params.projects[key]["Link"]}>Link to project</a> <br/>
+			 			<a href={params.projects[key]["Link"]}>Link to project</a>
+						<a class="gitLink"href={params.projects[key]["Git_link"]}>Git link</a> <br/>
 			 			{params.projects[key]["Date"]}
 			 			{params.loggedIn &&
 			 			<div class="panel" >

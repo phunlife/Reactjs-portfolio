@@ -34,7 +34,8 @@ export async function postProject (project) {
 			    Title: project.title,
 			    Description: project.description,
 			    Link: project.link,
-			    Img_link: project.img_link
+				Img_link: project.img_link,
+				Git_link: project.git_link
 			  }
 		})
 		  .then(response => console.log("Project posted") )
@@ -55,7 +56,8 @@ export async function editProject (project) {
 			    Title: project.Title,
 			    Description: project.Description,
 			    Link: project.Link,
-			    Img_link: project.Img_link
+				Img_link: project.Img_link,
+				Git_link: project.git_link
 			  }
 		})
 		  .then(response => console.log("Project edited") )

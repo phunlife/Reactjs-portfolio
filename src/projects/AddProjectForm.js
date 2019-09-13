@@ -39,6 +39,15 @@ const AddProjectForm = props => {
               onChange={handleChange}
               value={project.link}
             />
+            <label>Git link</label>
+            <input
+              type="text"
+              name="git_link"
+              onChange={handleChange}
+              value={project.git_link}
+            />
+          </div>
+          <div class="flex-small">
             <label>Image link</label>
             <input
               type="text"
@@ -46,8 +55,6 @@ const AddProjectForm = props => {
               onChange={handleChange}
               value={project.img_link}
             />
-          </div>
-          <div class="flex-small">
             <label>Description</label>
             <textarea
               class="description"
