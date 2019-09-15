@@ -12,8 +12,6 @@ const ListProjects = params => {
 	const [loading, setLoading] = useState(true);
 	
 	const [projects, setProjects] = useState([]);
-
-	const [project, setProject] = useState({});
 	
 	socket.on('new_project', (res) => setProjects([...projects, res]));
 	socket.on('removed_project', (res) => handleRemovedProject(res));
@@ -27,7 +25,7 @@ const ListProjects = params => {
 
 	async function fetchProjects() {
 		 let pro = await getProjects();
-		 console.log(pro)
+		 //console.log(pro) 
 		 return pro;
 	 }
 
@@ -57,7 +55,7 @@ const ListProjects = params => {
 	
 
 	return(
-		<div class="container">
+		<div className="container">
 			{ loading ? (
 				<center>Loading projects...</center>	
 			) : (
@@ -81,28 +79,29 @@ const ProjectList = params => {
 	}
 
 	const list = Object.keys(params.projects).map(key =>{
-			if (key !== "prototype"){
-			 return <div class="flex-small card" key={key}>
-			 			<img src={params.projects[key]["Img_link"]} />
-			 			<div class="body">
+			
+			 return <div className="flex-small card" key={key}>
+			 		<img src={params.projects[key]["Img_link"]} />
+			 		<div className="body">
 			 			<strong>{params.projects[key]["Title"]}</strong><br />
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
-			 			<a href={params.projects[key]["Link"]}>Link to project</a>
-						<a class="gitLink"href={params.projects[key]["Git_link"]}>Git link</a> <br/>
+			 			<a href={params.projects[key]["Link"]} target="_blank">Link to project</a>
+						<a className="gitLink"href={params.projects[key]["Git_link"]} target="_blank">Git link</a> <br/>
 			 			{params.projects[key]["Date"]}
 			 			{params.loggedIn &&
-			 			<div class="panel" >
+			 			<div className="panel" >
 			 				<button onClick={e => params.removeProject(e, params.projects[key]["id"], params.projects[key]["Title"])}>X</button>
 			 				<button onClick={() => params.handleEdit(params.projects[key]) }>Edit</button>
 			 			</div>
 			 			}
-			 			</div>
 			 		</div>
-			}});
+			 	</div>
+			
+	});
 
 
 	return(
-		<div class="flex-row" >{list}</div>
+		<div className="flex-row" >{list}</div>
 		);
 }
 

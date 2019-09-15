@@ -21,14 +21,14 @@ const EditProjectForm = props => {
   }, [props]);
 
   return (
-    <div class="container">
+    <div className="container">
       <form
         onSubmit={e => {
           handleSubmit(e);
         }}
       >
-        <div class="flex-row">
-          <div class="flex-small">
+        <div className="flex-row">
+          <div className="flex-small">
             <label>Title</label>
             <input
               type="text"
@@ -51,7 +51,7 @@ const EditProjectForm = props => {
               value={project.git_link}
             />
           </div>
-          <div class="flex-small">
+          <div className="flex-small">
             <label>Image link</label>
             <input
               type="text"
@@ -61,13 +61,13 @@ const EditProjectForm = props => {
             />
             <label>Description</label>
             <textarea
-              class="description"
+              className="description"
               name="Description"
               onChange={handleChange}
               value={project.Description}
             ></textarea>
 
-            <button type="submit" class="float-right">
+            <button type="submit" className="float-right">
               Update
             </button>
           </div>

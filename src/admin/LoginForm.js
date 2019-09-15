@@ -56,7 +56,7 @@ const LoginForm = params => {
 
 	return(
 		<div>
-		<a onClick={loginBtnAction} id="loginBtn">Sign in</a>
+		<button onClick={loginBtnAction} id="loginBtn">Sign in</button>
 		{loginform}
 		</div>
 	);
