@@ -81,12 +81,12 @@ const ProjectList = params => {
 	const list = Object.keys(params.projects).map(key =>{
 			
 			 return <div className="flex-small card" key={key}>
-			 		<img src={params.projects[key]["Img_link"]} />
+			 		<img src={params.projects[key]["Img_link"]} alt="Project"/>
 			 		<div className="body">
 			 			<strong>{params.projects[key]["Title"]}</strong><br />
 			 			{truncate(params.projects[key]["Description"], 85)}<br />
-			 			<a href={params.projects[key]["Link"]} target="_blank">Link to project</a>
-						<a className="gitLink"href={params.projects[key]["Git_link"]} target="_blank">Git link</a> <br/>
+			 			<a href={params.projects[key]["Link"]} target="_blank" rel="noopener noreferrer">Link to project</a>
+						<a className="gitLink"href={params.projects[key]["Git_link"]} target="_blank" rel="noopener noreferrer" >Git link</a> <br/>
 			 			{params.projects[key]["Date"]}
 			 			{params.loggedIn &&
 			 			<div className="panel" >
